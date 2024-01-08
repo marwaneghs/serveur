@@ -88,4 +88,21 @@ public class StudentResourceIT {
 
         assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> studentService.update(999, student));
     }
+
+    @Test
+    @Transactional
+    void deleteByIdStudentSucceeds() {
+        Student student = new Student();
+        student.setName("Pierre");
+        studentRepository.save(student);
+
+        studentService.deleteById(student.getId());
+        assertThat(studentRepository.findAll().size()).isEqualTo(0);
+    }
+
+    @Test
+    @Transactional
+    void deleteByIdThrowsAnExceptionWhenStudentIdIsNotFound() {
+        assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> studentService.deleteById(999));
+    }
 }

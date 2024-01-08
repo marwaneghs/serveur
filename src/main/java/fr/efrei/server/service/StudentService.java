@@ -38,4 +38,8 @@ public class StudentService {
         return studentRepository.save(existingStudent);
     }
 
+    public void deleteById(Integer id) {
+        studentRepository.delete(findById(id));
+    }
+
 }

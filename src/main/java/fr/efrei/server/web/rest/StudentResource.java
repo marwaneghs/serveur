@@ -49,4 +49,14 @@ public class StudentResource {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        try {
+            studentService.deleteById(id);
+            return new ResponseEntity<>("Student deleted successfully", HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
